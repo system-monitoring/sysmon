@@ -1,0 +1,5 @@
+#!/bin/bash
+url1="http://<gateway name/ip>:8800/cgi-bin/sendsms?username=<username>&password=<password>&to=<tele no>&text="
+url4="$@"
+urlname=$url1+$url4
+wget -O- "$urlname"

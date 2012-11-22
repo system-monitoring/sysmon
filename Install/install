@@ -1,0 +1,34 @@
+#!/bin/bash
+
+if [ "$(id -u)" != "0" ]; then
+   echo "This script must be run as root" 1>&2
+   exit 1
+fi
+
+echo "Enter System Username:"
+read USER
+if [ "$USER" = "root" ];then
+	echo "Enter System Username (without admin user):"
+	read USER
+	if [ "$USER" = "root" ];then
+		echo "User you enterd is admin user. Re run the script."
+		exit
+	fi
+fi
+
+BASEDIR="/home/${USER}/Office-Repos/monitoring.repo"
+INSTALLDIR="/opt/cadmus"
+
+if [ -d $BASEDIR ];then
+	cd $BASEDIR
+	sudo -u $USER git checkout thinkcube
+	sudo -u $USER git pull
+fi
+if [ ! -d $INSTALLDIR ];then
+	mkdir -p $INSTALLDIR
+	cd $BASEDIR
+	cp -r Deamon sendsms $INSTALLDIR
+	cp Service $INSTALLDIR/Deamon
+	cp Startup-Daemon/cadmus /etc/init.d/
+	update-rc.d cadmus
+fi

@@ -1,0 +1,89 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:             cadmus
+# Required-Start:       $remote_fs $syslog
+# Required-Stop:        $remote_fs $syslog
+# Default-Start:        2 3 4 5
+# Default-Stop:         0 1 6
+# Short-Description:    Cadmus Monitoring Server
+### END INIT INFO
+
+# Start the service Cadmus
+start() {
+	if [ -f /var/lock/Cadmus/cadmus.lock ];then
+		echo "Cadmus Server Already Running"
+		exit
+	fi
+        echo -n "Starting Cadmus server: "
+	cd /opt/cadmus/Deamon
+	python daemon.py shell_executor start
+	### Create the lock file ###
+	if [ ! -d /var/lock/Cadmus ];then
+        	mkdir -p /var/lock/Cadmus
+	fi
+        touch /var/lock/Cadmus/cadmus.lock
+        echo -n "Cadmus Server Started"
+        echo
+}
+# Stop the service Cadmus
+stop() {
+	if [ ! -f /var/lock/Cadmus/cadmus.lock ];then
+		echo "Cadmus Server Already Stopped"
+		exit
+	fi
+        echo -n "Stopping Cadmus server: "
+	cd /opt/cadmus/Deamon
+	python daemon.py shell_executor stop > /dev/null 2>&1
+	### Now, delete the lock file ###
+        rm -f /var/lock/Cadmus/cadmus.lock
+        echo -n "Cadmus Server Stopped"
+        echo
+}
+# Status the service Cadmus
+status() {
+	if [ -e /var/lock/Cadmus/cadmus.lock ]; then
+            echo -n "Cadmus Server is running\n" && exit 0 || exit $?
+        else
+            echo -n "Cadmus Server is not running\n"
+        fi
+}
+# Restart the service Cadmus
+restart() {
+        echo -n "Stopping Cadmus server: "
+	cd /opt/cadmus/Deamon
+	python daemon.py shell_executor stop > /dev/null 2>&1
+	### Now, delete the lock file ###
+        rm -f /var/lock/Cadmus/cadmus.lock
+        echo -n "Cadmus Server Stopped"
+        echo
+	echo -n "Starting Cadmus server: "
+        python daemon.py shell_executor start
+        ### Create the lock file ###
+        if [ ! -d /var/lock/Cadmus ];then
+                mkdir -p /var/lock/Cadmus
+        fi
+        touch /var/lock/Cadmus/cadmus.lock
+        echo -n "Cadmus Server Started"
+        echo
+}
+# Status the service Cadmus
+### main logic ###
+case "$1" in
+  start)
+        start
+        ;;
+  stop)
+        stop
+        ;;
+  status)
+	status
+        ;;
+  restart)
+	restart
+        ;;
+  *)
+        echo $"Usage: $0 {start|stop|restart|status}"
+        exit 1
+esac
+exit 0
