@@ -3,12 +3,12 @@ sysmon
 
 System Monitoring Solution For Linux Server
 
-WEB Monitoring
-MYSQL Monitoring
-DNS Monitoring
-MEMORY Usage
-DISK Usage
-SYSTEM Load
+WEB Monitoring<br>
+MYSQL Monitoring<br>
+DNS Monitoring<br>
+MEMORY Usage<br>
+DISK Usage<br>
+SYSTEM Load<br>
 
 With SMS and Email Alert
 
