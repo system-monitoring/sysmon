@@ -16,9 +16,28 @@ if [ "$USER" = "root" ];then
 	fi
 fi
 
-BASEDIR="/home/${USER}/Office-Repos/monitoring.repo"
+if id -u $USER >/dev/null 2>&1;then
+	echo
+else
+	echo "User dose not exist"
+	exit
+fi
+
+echo "Enter Git Repository Path:"
+read BASEDIR
+
+if [ ! -d $BASEDIR ];then
+	echo "Enter Git Repository Path(Full Path):"
+	read BASEDIR
+	if [ ! -d $BASEDIR ];then
+		echo "Git Repository Not Found"
+		exit
+	fi
+fi
+
 INSTALLDIR="/opt/cadmus"
 
+exit
 if [ -d $BASEDIR ];then
 	cd $BASEDIR
 	sudo -u $USER git checkout thinkcube
