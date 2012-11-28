@@ -2,7 +2,7 @@
 
 ######### Edit ###############
 
-WORKDIR="/opt/notify"
+WORKDIR="/opt/cadmus/notify"
 
 OS=`uname`
 if [ "${OS}" = "Linux" ];then
