@@ -35,7 +35,7 @@ if [ ! -d $BASEDIR ];then
 	fi
 fi
 
-INSTALLDIR="/opt/cadmus"
+INSTALLDIR="/opt/sysmon"
 
 exit
 if [ -d $BASEDIR ];then
@@ -47,7 +47,7 @@ if [ ! -d $INSTALLDIR ];then
 	mkdir -p $INSTALLDIR
 	cd $BASEDIR
 	cp -r Deamon sendsms $INSTALLDIR
-	cp Service $INSTALLDIR/Deamon
-	cp Startup-Daemon/cadmus /etc/init.d/
-	update-rc.d cadmus
+	cp service $INSTALLDIR/Deamon
+	cp Startup-Daemon/sysmon /etc/init.d/
+	update-rc.d sysmon
 fi

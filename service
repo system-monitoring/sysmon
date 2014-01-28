@@ -2,7 +2,7 @@
 
 ######### Edit ###############
 
-WORKDIR="/opt/cadmus/notify"
+WORKDIR="/opt/sysmon/notify"
 
 OS=`uname`
 if [ "${OS}" = "Linux" ];then
@@ -26,7 +26,7 @@ elif [ "${OS}" = "FreeBSD" ];then
 fi
 ######NOTIFICATIONS###
 EMAIL="ishanka@gmail.com"
-SENDSMS="/opt/cadmus/sendsms"
+SENDSMS="/opt/sysmon/sendsms"
 LOGGER="/usr/bin/logger"
 ####SERVER DATE ######
 LONGDATETIME=$(date)

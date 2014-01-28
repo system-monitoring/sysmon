@@ -10,5 +10,5 @@ IO_GENERIC_ERROR_CODE = '300'
 
 LOG_PROGRAM = 'tenant-monitordaemon'
 
-shells = ['Service']
+shells = ['service']
 interval = 180
